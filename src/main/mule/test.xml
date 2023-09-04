@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7c815a4a-fe74-43a2-ae30-e665b36025a8" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="40da9c27-7ff3-475f-a56f-997af1bdf075" >
+		<db:my-sql-connection host="db4free.net" port="3306" user="mulememo" password="mulememo" database="narasimha" />
+	</db:config>
+	<api-gateway:autodiscovery apiId="18920699" ignoreBasePath="false" doc:name="API Autodiscovery" doc:id="9538085d-608a-495d-a5cc-a6ecbcdf8224" flowRef="testFlow" />
+	<flow name="testFlow" doc:id="46a540a9-a713-4318-b4b0-b07163cd4118" >
+		<http:listener doc:name="Listener" doc:id="505f7983-4466-4a98-a8ce-d3cd21c4ed18" config-ref="HTTP_Listener_config" path="/test"/>
+		<db:select doc:name="Select" doc:id="0fbf161c-2637-4fef-9ccf-c53c77911953" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from employee]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="aa2c615d-d400-4676-ad46-0767eae0cdf6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
