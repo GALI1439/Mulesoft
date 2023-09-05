@@ -40,7 +40,7 @@
 					<cloudHubDeployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<muleVersion>4.4.0</muleVersion>
-						<username>saas_gali_training</username>
+						<username>saas_gali_training_09</username>
 						<password>King@12947999</password>
 						<applicationName>test-maven-nr</applicationName>
 						<environment>Sandbox</environment>
