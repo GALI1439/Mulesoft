@@ -42,7 +42,7 @@
 						<muleVersion>4.4.0</muleVersion>
 						<username>saas_gali_training_09</username>
 						<password>King@12947999</password>
-						<applicationName>test-maven-nr</applicationName>
+						<applicationName>test-maven-jenkins</applicationName>
 						<environment>Sandbox</environment>
 						<workers>1</workers>
 						<workerType>MICRO</workerType>
